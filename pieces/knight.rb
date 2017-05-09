@@ -4,9 +4,8 @@ class Knight < Piece
   include SteppingPiece
   attr_reader :symbol
 
-  def initialize(board, color, pos)
-    @symbol = :N
-    super
+  def symbol
+    color === :white ? "\u2658" : "\u265E"
   end
 
   def move_dirs

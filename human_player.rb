@@ -1,12 +1,25 @@
-class HumanPlayer
+require_relative 'display'
+require_relative 'player'
 
-  attr_reader :name, :color
+class HumanPlayer < Player
 
-  def initialize(name, color)
-    @name = name
-    @color = color
-  end
+  def make_move(board)
+    starting_pos, ending_pos = nil, nil
 
-  def make_move()
+    until starting_pos && ending_pos
+      display.render
+
+      if starting_pos
+        puts "#{name}'s (#{color}) turn. Where do you want to move?"
+        ending_pos = display.cursor.get_input
+        display.reset! if ending_pos
+      else
+        puts "#{name}'s (#{color}) turn. Where from do you want to move?"
+        starting_pos = display.curose.get_input
+        display.reset! if ending_pos
+      end
+    end
+
+    [starting_pos, ending_pos]
   end
 end

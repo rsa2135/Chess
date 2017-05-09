@@ -1,11 +1,9 @@
 require_relative 'piece'
 class Rook < Piece
   include SlidingPiece
-  attr_reader :symbol
 
-  def initialize(board, color, pos)
-    @symbol = :R
-    super
+  def symbol
+    color === :white ? "\u2656" : "\u265C"
   end
 
   def move_dirs

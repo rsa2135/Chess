@@ -1,11 +1,9 @@
 require_relative 'piece'
 
 class Pawn < Piece
-  attr_reader :symbol
 
-  def initialize(board, color, pos)
-    @symbol = :P
-    super
+  def symbol
+    color === :white ? "\u2659" : "\u265F"
   end
 
   def at_start_row?

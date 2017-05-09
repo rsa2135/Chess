@@ -2,11 +2,9 @@ require_relative 'piece'
 
 class King < Piece
   include SteppingPiece
-  attr_reader :symbol
 
-  def initialize(board, color, pos)
-    @symbol = :K
-    super
+  def symbol
+    color === :white ? "\u2654" : "\u265A"
   end
 
   def move_dirs

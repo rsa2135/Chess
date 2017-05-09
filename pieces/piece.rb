@@ -13,8 +13,21 @@ class Piece
     board.add_piece(self, pos)
   end
 
+  # def to_s
+  #   self.symbol.to_s
+  # end
+
   def to_s
-    self.symbol.to_s
+    " #{symbol} "
+  end
+
+  def empty?
+    self.is_a?(NullPiece) ? true : false
+  end
+
+  def symbol
+    # subclass implements this with unicode chess char
+    # raise NotImplementedError
   end
 
   def valid_moves
