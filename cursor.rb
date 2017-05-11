@@ -37,6 +37,7 @@ class Cursor
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
+    @selected = false
   end
 
   def get_input
@@ -44,60 +45,47 @@ class Cursor
     handle_key(key)
   end
 
+  def toggle_selected
+    @selected = !@selected
+  end
+
   private
 
   def read_char
-    STDIN.echo = false # stops the console from printing return values
-
-    STDIN.raw! # in raw mode data is given as is to the program--the system
-                 # doesn't preprocess special characters such as control-c
-
-    input = STDIN.getc.chr # STDIN.getc reads a one-character string as a
-                             # numeric keycode. chr returns a string of the
-                             # character represented by the keycode.
-                             # (e.g. 65.chr => "A")
+    STDIN.echo = false
+    STDIN.raw!
+    input = STDIN.getc.chr
 
     if input == "\e" then
-      input << STDIN.read_nonblock(3) rescue nil # read_nonblock(maxlen) reads
-                                                   # at most maxlen bytes from a
-                                                   # data stream; it's nonblocking,
-                                                   # meaning the method executes
-                                                   # asynchronously; it raises an
-                                                   # error if no data is available,
-                                                   # hence the need for rescue
-
+      input << STDIN.read_nonblock(3) rescue nil
       input << STDIN.read_nonblock(2) rescue nil
     end
 
-    STDIN.echo = true # the console prints return values again
-    STDIN.cooked! # the opposite of raw mode :)
+    STDIN.echo = true
+    STDIN.cooked!
 
     return input
   end
 
   def handle_key(key)
-    self.selected = false
     case key
     when :return, :space
       toggle_selected
+      cursor_pos
     when :left, :right, :up, :down
-      update_pos(key)
+      update_pos(MOVES[key])
+      nil
     when :ctrl_c
       Process.exit(0)
+    else
+      puts key
     end
 
   end
 
-  def update_pos(diff) #[[1,4],[2,5],[3,6]].map {|sub_arr| sub_arr.inject {|accu, current| accu + current }}
-    new_pos = MOVES[diff].zip(cursor_pos).map { |sub_arr| sub_arr.inject(:+) }
-    if board.in_bounds?(new_pos)
-      self.cursor_pos = new_pos
-    end
-  end
-
-  def toggle_selected
-    self.selected == true ? self.selected = false : self.selected = true
-    cursor_pos
+  def update_pos(diff)
+    new_pos = [cursor_pos[0] + diff[0], cursor_pos[1] + diff[1]]
+    @cursor_pos = new_pos if board.in_bounds?(new_pos)
   end
 
 end

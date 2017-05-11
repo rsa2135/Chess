@@ -4,7 +4,7 @@ class King < Piece
   include SteppingPiece
 
   def symbol
-    color === :white ? "\u2654" : "\u265A"
+    color === :white ? "♔" : "♚"
   end
 
   def move_dirs

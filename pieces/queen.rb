@@ -5,7 +5,7 @@ class Queen < Piece
   attr_reader :symbol
 
   def symbol
-    color === :white ? "\u2655" : "\u265B"
+    color === :white ? "♕" : "♛"
   end
 
   def move_dirs

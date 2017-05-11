@@ -5,7 +5,7 @@ class Knight < Piece
   attr_reader :symbol
 
   def symbol
-    color === :white ? "\u2658" : "\u265E"
+    color === :white ? "♘" : "♞"
   end
 
   def move_dirs

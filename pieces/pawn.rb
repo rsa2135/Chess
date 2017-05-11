@@ -3,7 +3,7 @@ require_relative 'piece'
 class Pawn < Piece
 
   def symbol
-    color === :white ? "\u2659" : "\u265F"
+    color === :white ? "♙" : "♟"
   end
 
   def at_start_row?
@@ -29,7 +29,4 @@ class Pawn < Piece
         [[forward_dir, 0]]
     end
   end
-
-  # def side_attacks
-  # end
 end

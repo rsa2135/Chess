@@ -6,8 +6,8 @@ class Null < Piece
   attr_reader :symbol, :color
 
   def initialize
-    @symbol = :"•"
-    @color = :brown
+    @symbol = :"   "
+    @color = :none
   end
 
   def to_s

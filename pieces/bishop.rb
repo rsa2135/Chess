@@ -4,7 +4,7 @@ class Bishop < Piece
   attr_reader :symbol
 
   def symbol
-    color === :white ? "\u2657" : "\u265D"
+    color === :white ? "♗" : "♝"
     # :B.colorize(color)
   end
 
