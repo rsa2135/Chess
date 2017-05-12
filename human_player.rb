@@ -8,13 +8,15 @@ class HumanPlayer < Player
 
     until starting_pos && ending_pos
       display.render
-        
+
       if starting_pos
-        puts "#{name}'s turn (#{color}). Where do you want to move?"
+        puts "#{name}'s turn (#{color})"
+        puts "Select desired ending square"
         ending_pos = display.cursor.get_input
         display.reset! if ending_pos
       else
-        puts "#{name}'s turn (#{color}). Where from do you want to move?"
+        puts "#{name}'s turn (#{color})"
+        puts "Select desired piece to move"
         starting_pos = display.cursor.get_input
         display.reset! if starting_pos
       end

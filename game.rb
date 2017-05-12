@@ -27,7 +27,7 @@ class Game
       begin
         # debugger
         start_pos, end_pos = players[current_player_color].make_move(board)
-        debugger
+        #debugger
         board.move_piece(start_pos, end_pos, current_player_color)
         swap_turn!
         notify_players

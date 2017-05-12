@@ -87,7 +87,7 @@ class Board
   end
 
   def move_piece!(start_pos, end_pos)
-    debugger
+    # debugger
     raise 'This piece cannot move to that spot' unless self[start_pos].moves.include?(end_pos)
 
     self[end_pos] = self[start_pos]
@@ -128,7 +128,6 @@ class Board
     # debugger
     valid_moves_collection = []
     opposite_color = (color == :white) ? :black : :white
-    # king_pos = find_king_pos(color)
     grid.each do |row|
       row.each do |piece|
         if piece.color == opposite_color

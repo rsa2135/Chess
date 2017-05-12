@@ -31,7 +31,7 @@ class Piece
   end
 
   def valid_moves
-    debugger
+    # debugger
     valid_moves_arr = []
     moves_collection = moves
     moves_collection.each do |move|
