@@ -22,7 +22,7 @@ class Piece
   end
 
   def empty?
-    self.is_a?(NullPiece) ? true : false
+    self.is_a?(Null) ? true : false
   end
 
   def symbol

@@ -123,6 +123,10 @@ class Board
     false
   end
 
+  def empty?(pos)
+    self[pos].empty?
+  end
+
   def checkmate?(color)
     return false unless in_check?(color)
     # debugger

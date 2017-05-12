@@ -6,6 +6,7 @@ module SteppingPiece
   end
 
   def grow_unblocked_moves_in_dir(start_pos, deltas)
+    # debugger
     current_moves = []
     deltas.each do |delta|
       new_pos = [start_pos[0] + delta[0], start_pos[1] + delta[1]]
