@@ -27,15 +27,12 @@ class Display
 
   def colors_for(i, j)
     if cursor.selected
-      # debugger
       moves_queue.push(cursor.cursor_pos)
     else
       self.moves_queue = []
     end
-    # debugger
     if cursor.cursor_pos && cursor.selected
-      # debugger
-      if (board[moves_queue.first].class != Null) && (board[moves_queue.first].valid_moves.include?([i, j])) && moves_queue.first && ([i,j] != cursor.cursor_pos)
+      if (board[moves_queue.first].class != Null) && (board[moves_queue.first].moves.include?([i, j])) && moves_queue.first && ([i,j] != cursor.cursor_pos)
         bg = :light_yellow
       elsif [i, j] == moves_queue.first
         bg = :light_green
@@ -72,12 +69,10 @@ class Display
   end
 
   # def helper
-  #   debugger
   #   while true
   #     render
   #     cursor.get_input
   #     cursor.cursor_pos
-  #     debugger
   #   end
   # end
 

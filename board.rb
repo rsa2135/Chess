@@ -72,7 +72,6 @@ class Board
   end
 
   def move_piece(start_pos, end_pos, current_color)
-    # debugger
     if self[start_pos].color != current_color
       raise "You can only move your own pieces"
     elsif !self[start_pos].moves.include?(end_pos)
@@ -87,7 +86,6 @@ class Board
   end
 
   def move_piece!(start_pos, end_pos)
-    # debugger
     raise 'This piece cannot move to that spot' unless self[start_pos].moves.include?(end_pos)
 
     self[end_pos] = self[start_pos]
@@ -113,14 +111,17 @@ class Board
   def in_check?(color)
     opposite_color = :white ? :black : :white
     king_pos = find_king_pos(color)
-    grid.each do |row|
-      row.each do |piece|
-        if piece.color == opposite_color
-          return true if piece.moves.include?(king_pos)
-        end
-      end
+    # grid.each do |row|
+    #   row.each do |piece|
+    #     if piece.color == opposite_color
+    #       return true if piece.moves.include?(king_pos)
+    #     end
+    #   end
+    # end
+    existing_pieces.any? do |p|
+      p.color != color && p.moves.include?(king_pos)
     end
-    false
+    # false
   end
 
   def empty?(pos)
@@ -129,17 +130,20 @@ class Board
 
   def checkmate?(color)
     return false unless in_check?(color)
-    # debugger
-    valid_moves_collection = []
-    opposite_color = (color == :white) ? :black : :white
-    grid.each do |row|
-      row.each do |piece|
-        if piece.color == opposite_color
-          valid_moves_collection.push(true) if piece.valid_moves.empty?
-        end
-      end
+    # valid_moves_collection = []
+    # opposite_color = (color == :white) ? :black : :white
+    # grid.each do |row|
+    #   row.each do |piece|
+    #     if piece.color == opposite_color
+    #       valid_moves_collection.push(true) if piece.valid_moves.empty?
+    #     end
+    #   end
+    # end
+    # valid_moves_collection.all? ? true : false
+
+    existing_pieces.select { |p| p.color == color }.all? do |piece|
+      piece.valid_moves.empty?
     end
-    valid_moves_collection.all? ? true : false
   end
 
   def find_king_pos(color)
@@ -164,29 +168,3 @@ class Board
     board_copy
   end
 end
-
-
-# b = Board.new
-# # p b.class
-# # p b.grid
-# # b = Board.new
-# b.display.render
-# #
-# # b.dup
-# b.move_piece([6, 5], [5, 5])
-# b.move_piece([1, 4], [3, 4])
-# b.move_piece([6, 6], [4, 6])
-# b.move_piece([0, 3], [4, 7])
-# b.display.render
-# # b.move_piece([0,1], [2,0])
-# p b.in_check?(:white)
-# p b.checkmate?(:white)
-# # b.move_piece([2, 0], [4,1])
-# p
-# # p b.find_king_pos(:white)
-# # p b[[6, 0]].valid_moves
-# # puts "Knight: #{b[[5, 3]].valid_moves}"
-# # puts "Queen: #{b[[4, 3]].valid_moves}"
-# # puts "King: #{b[[0, 4]].valid_moves}"
-# puts "Rook: #{b[[0, 0]].valid_moves}"
-# puts "Bishop: #{b[[0, 5]].valid_moves}"

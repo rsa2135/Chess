@@ -31,7 +31,6 @@ class Piece
   end
 
   def valid_moves
-    # debugger
     valid_moves_arr = []
     moves_collection = moves
     moves_collection.each do |move|
@@ -39,13 +38,11 @@ class Piece
         valid_moves_arr.push(move)
       end
     end
-    # debugger
     valid_moves_arr
   end
 
   private
   def move_into_check?(end_pos)
-    # debugger
     duped_board = board.dup
     duped_board.move_piece!(pos, end_pos)
     duped_board.in_check?(color)

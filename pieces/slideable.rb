@@ -1,7 +1,6 @@
 module SlidingPiece
 
   def moves
-    # debugger
     deltas = move_dirs
     all_moves = []
     deltas.each do |delta|

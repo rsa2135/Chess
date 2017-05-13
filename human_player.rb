@@ -21,7 +21,6 @@ class HumanPlayer < Player
         display.reset! if starting_pos
       end
     end
-    # debugger
     [starting_pos, ending_pos]
   end
 end

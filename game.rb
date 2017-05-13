@@ -22,12 +22,9 @@ class Game
   end
 
   def play
-    # debugger
     until board.checkmate?(current_player_color)
       begin
-        # debugger
         start_pos, end_pos = players[current_player_color].make_move(board)
-        #debugger
         board.move_piece(start_pos, end_pos, current_player_color)
         swap_turn!
         notify_players
@@ -38,10 +35,12 @@ class Game
     end
     display.render
     puts "#{current_player_name} is checkmated!"
+
+    nil
   end
 
   private
-  def notify_players()
+  def notify_players
     if board.in_check?(current_player_color)
       display.set_check!
     else
