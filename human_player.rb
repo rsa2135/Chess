@@ -8,15 +8,16 @@ class HumanPlayer < Player
 
     until starting_pos && ending_pos
       display.render
+      padding = " " * 5
 
       if starting_pos
-        puts "#{name}'s turn (#{color})"
-        puts "Select desired ending square"
+        puts "#{padding}#{name}'s turn (#{color})"
+        puts "#{padding}Select desired ending position"
         ending_pos = display.cursor.get_input
         display.reset! if ending_pos
       else
-        puts "#{name}'s turn (#{color})"
-        puts "Select desired piece to move"
+        puts "#{padding}#{name}'s turn (#{color})"
+        puts "#{padding}Select desired piece to move"
         starting_pos = display.cursor.get_input
         display.reset! if starting_pos
       end

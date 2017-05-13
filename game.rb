@@ -1,7 +1,6 @@
 require_relative 'human_player'
 require_relative 'display'
 require_relative 'board'
-require 'byebug'
 
 class Game
 
@@ -56,5 +55,9 @@ class Game
 end
 
 if __FILE__ == $PROGRAM_NAME
-  Game.new("Ron", "Eli").play
+  puts "Please enter player 1 name"
+    player1 = gets.chomp
+  puts "Please enter player 2 name"
+    player2 = gets.chomp
+  Game.new(player1, player2).play
 end

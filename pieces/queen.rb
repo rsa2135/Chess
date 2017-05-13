@@ -2,7 +2,6 @@ require_relative 'piece'
 
 class Queen < Piece
   include SlidingPiece
-  attr_reader :symbol
 
   def symbol
     color === :white ? "♕" : "♛"

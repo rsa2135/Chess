@@ -71,7 +71,6 @@ class Cursor
   def handle_key(key)
     case key
     when :return, :space
-      self.counter += 1
       toggle_selected
       cursor_pos
     when :left, :right, :up, :down

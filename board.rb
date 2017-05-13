@@ -1,5 +1,3 @@
-
-require "byebug"
 require_relative "display"
 require_relative "pieces/piece"
 require_relative "pieces/queen"
@@ -111,17 +109,14 @@ class Board
   def in_check?(color)
     opposite_color = :white ? :black : :white
     king_pos = find_king_pos(color)
-    # grid.each do |row|
-    #   row.each do |piece|
-    #     if piece.color == opposite_color
-    #       return true if piece.moves.include?(king_pos)
-    #     end
-    #   end
-    # end
-    existing_pieces.any? do |p|
-      p.color != color && p.moves.include?(king_pos)
+    grid.each do |row|
+      row.each do |piece|
+        if piece.color == opposite_color
+          return true if piece.moves.include?(king_pos)
+        end
+      end
     end
-    # false
+    false
   end
 
   def empty?(pos)
@@ -130,20 +125,16 @@ class Board
 
   def checkmate?(color)
     return false unless in_check?(color)
-    # valid_moves_collection = []
-    # opposite_color = (color == :white) ? :black : :white
-    # grid.each do |row|
-    #   row.each do |piece|
-    #     if piece.color == opposite_color
-    #       valid_moves_collection.push(true) if piece.valid_moves.empty?
-    #     end
-    #   end
-    # end
-    # valid_moves_collection.all? ? true : false
-
-    existing_pieces.select { |p| p.color == color }.all? do |piece|
-      piece.valid_moves.empty?
+    valid_moves_collection = []
+    opposite_color = (color == :white) ? :black : :white
+    grid.each do |row|
+      row.each do |piece|
+        if piece.color == opposite_color
+          valid_moves_collection.push(true) if piece.valid_moves.empty?
+        end
+      end
     end
+    valid_moves_collection.all? ? true : false
   end
 
   def find_king_pos(color)
@@ -154,15 +145,12 @@ class Board
     end
   end
 
-  def existing_pieces
-    grid.flatten.reject { |piece| piece.class == Null }
-  end
-
   def dup
     board_copy = Board.new(false)
-
-    existing_pieces.each do |piece|
-      piece.class.new(board_copy, piece.color, piece.pos)
+    grid.each do |row|
+      row.each do |piece|
+        piece.class.new(board_copy, piece.color, piece.pos) unless piece.class == Null
+      end
     end
 
     board_copy

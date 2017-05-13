@@ -1,7 +1,6 @@
 require "colorize"
 require_relative "cursor"
 
-
 class Display
   attr_reader :board, :cursor, :notifications
   attr_accessor :moves_queue
@@ -56,25 +55,19 @@ class Display
   end
 
   def render
+    padding = " " * 5
     system("clear")
-    puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
-    puts "   a  b  c  d  e  f  g  h "
-    build_grid.each_with_index { |row, i| puts "#{board.grid.length - i} #{row.join} #{board.grid.length - i}" }
-    puts "   a  b  c  d  e  f  g  h "
+    puts ""
+    puts "#{padding}Arrow keys, WASD, or vim to move, space or enter to confirm."
+    puts ""
+    puts "#{padding * 4}   a  b  c  d  e  f  g  h "
+    build_grid.each_with_index { |row, i| puts "#{padding * 4}#{board.grid.length - i} #{row.join} #{board.grid.length - i}" }
+    puts "#{padding * 4}   a  b  c  d  e  f  g  h "
     puts ""
     @notifications.each do |key, val|
-      puts "#{val}"
+      puts "#{padding}#{val}"
     end
-    puts moves_queue.first
   end
-
-  # def helper
-  #   while true
-  #     render
-  #     cursor.get_input
-  #     cursor.cursor_pos
-  #   end
-  # end
 
   def reset!
     @notifications.delete(:error)
